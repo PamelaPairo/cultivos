@@ -1,0 +1,31 @@
+---
+title: "clasificacion_cultivos"
+author: "Pamela Pairo"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
+```
+
+```{r, echo=FALSE}
+
+library(sf)
+library(tidyverse)
+library(mapview)
+library(leafsync)
+
+Maiz_INTA <- read_sf("Pergamino/maiz_2020.shp") 
+Soja_INTA <- read_sf("Pergamino/soja_2020_f.shp")
+Soja_Feb <- read_sf("Pergamino/soja_feb.shp")
+Maiz_Feb <- read_sf("Pergamino/maiz_feb.shp")
+
+
+p1 <- mapview(Soja_Feb, col.regions="red", color="red")+
+  mapview(Soja_INTA, color="blue")
+
+p2<-mapview(Maiz_Feb, col.regions="red", color="red")+
+  mapview(Maiz_INTA, color="blue")
+
+sync(p1, p2)
+```
