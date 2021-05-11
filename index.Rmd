@@ -8,6 +8,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
 ```
 
+El gráfico que aparece a la izquierda corresponde a la clasificación realizada por el INTA con imagenes LANDSAT para la campaña de verano 2019-2020. El gráfico de la derecha corresponde a la clasificación supervisada realizada con imágenes Sentinel-2 del 23-28 de febrero del 2020. El azul corresponde a lo clasificado por el INTA y los polígonos rojos a lo clasificado por el equipo de CONAE.
+
 ```{r, echo=FALSE}
 
 library(sf)
