@@ -1,6 +1,6 @@
 ---
-title: "Clasificación supervisada de cultivos"
-author: "Pamela Pairo"
+title: "Clasificación supervisada de cultivos- Campaña 2019-2020"
+author: "Nazarena Rojas y Pamela Pairo"
 output: html_document
 ---
 
@@ -8,15 +8,39 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
 ```
 
-El gráfico que aparece a la izquierda corresponde a las clasificaciones realizadas para el cultivo de soja y a la derecha las clasificaciones para el cultivo de maiz. La clasificación realizada por el INTA con imagenes LANDSAT para la campaña de verano 2019-2020 se representa en azul. La clasificación supervisada realizada con imágenes Sentinel-2 del 23-28 de febrero del 2020 está representada en rojo. Se utilizo Google Earth Engine para realizar las clasificaciones supervisadas con imágenes Sentinel-2.
-
 ```{r, echo=FALSE}
 
 library(sf)
 library(tidyverse)
 library(mapview)
 library(leafsync)
+```
 
+## Metodología general para las clasificaciones supervisadas
+
+Para la generación de estos productos se utilizó la colección de imágenes Sentinel-2 disponibles en la plataforma de Google Earth Engine. En la clasificación de las mismas se utilizó el algoritmo Random Forest y se generaron los vectores con sus correspondientes áreas de cultivo.
+
+## Cultivo de invierno 2019
+
+A continuación se muestran los cultivos de trigo para la EL 29-30 DE septiembre por parte del INTA y la clasificación realizada con imágenes Sentinel 2 (rojo)
+
+```{r, echo=FALSE}
+#Trigo_INTA <- read_sf("Pergamino/maiz_2020.shp") 
+Trigo_sep <- read_sf("Pergamino/interseccion_29-30_sep_2019.shp")
+
+
+mapview(Trigo_sep, col.regions="red", color="red")
+#  mapview(Trigo_INTA, color="blue")
+
+
+```
+
+## Cultivos de verano 2019-2020
+
+El gráfico que aparece a la izquierda corresponde a las clasificaciones realizadas para el cultivo de soja y a la derecha las clasificaciones para el cultivo de maiz. La clasificación realizada por el INTA con imagenes LANDSAT para la campaña de verano 2019-2020 se representa en azul. La clasificación supervisada realizada con imágenes Sentinel-2 del 23-28 de febrero del 2020 está representada en rojo. 
+
+
+```{r, echo=FALSE}
 Maiz_INTA <- read_sf("Pergamino/maiz_2020.shp") 
 Soja_INTA <- read_sf("Pergamino/soja_2020_f.shp")
 Soja_Feb <- read_sf("Pergamino/soja_punto_febrero.shp")
@@ -31,3 +55,4 @@ p2<-mapview(Maiz_Feb, col.regions="red", color="red")+
 
 sync(p1, p2)
 ```
+
