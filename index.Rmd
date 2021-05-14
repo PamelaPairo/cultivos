@@ -19,8 +19,8 @@ library(leafsync)
 
 Maiz_INTA <- read_sf("Pergamino/maiz_2020.shp") 
 Soja_INTA <- read_sf("Pergamino/soja_2020_f.shp")
-Soja_Feb <- read_sf("Pergamino/soja_feb.shp")
-Maiz_Feb <- read_sf("Pergamino/maiz_feb.shp")
+Soja_Feb <- read_sf("Pergamino/soja_punto_febrero.shp")
+Maiz_Feb <- read_sf("Pergamino/maiz_punto_febrero.shp")
 
 
 p1 <- mapview(Soja_Feb, col.regions="red", color="red")+
