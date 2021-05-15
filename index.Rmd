@@ -18,26 +18,32 @@ library(leafsync)
 
 ## Metodología general para las clasificaciones supervisadas
 
-Para la generación de estos productos se utilizó la colección de imágenes Sentinel-2 disponibles en la plataforma de Google Earth Engine. En la clasificación de las mismas se utilizó el algoritmo Random Forest y se generaron los vectores con sus correspondientes áreas de cultivo.
+Se utilizó información elaborada por el INTA de las campañas Invierno de 2019 y Verano 2019/2020. La información está disponible en formato tiff [aquí](http://geointa.inta.gob.ar/publico/MNC/).
+El informe generado de dicha campaña 2019/2020 que describe la metodología y los resultados obtenidos se puede consultar [aquí](http://www.geointa.inta.gob.ar/2020/10/06/mapa-nacional-de-cultivos-campana-2019-2020/) 
+
+Para la generación de los productos se utilizó la colección de imágenes Sentinel-2 disponibles en la plataforma de Google Earth Engine para el Departamento de Pergamino de la Provincia de Buenos Aires. En la clasificación de las mismas se utilizó el algoritmo Random Forest, 500 puntos por clase^[Para cultivos de invierno: suelo, arbustos, trigo y agua. Para cultivos de verano: suelo, soja, trigo, agua y arbustos] y se generaron los vectores con sus correspondientes áreas de cultivo. De todos los datos, se usaron el 70% para entrenar el modelo y el 30% para la validación.
+Se calcularon las áreas sembradas para los cultivos de invierno (trigo, cebada y centeno) y verano (maíz y soja).
+Además se calcularon las áreas sembradas según una clasificación generada a partir de tomar 500 puntos por clase tomando como verdades de campo lo generado por INTA.
+
 
 ## Cultivo de invierno 2019
 
-A continuación se muestran los cultivos de trigo para la EL 29-30 DE septiembre por parte del INTA y la clasificación realizada con imágenes Sentinel 2 (rojo)
+A continuación se muestran los cultivos de trigo para la el 29-30 de septiembre por parte del INTA (violeta) y la clasificación realizada con imágenes Sentinel 2 (rojo)
 
 ```{r, echo=FALSE}
 #Trigo_INTA <- read_sf("Pergamino/maiz_2020.shp") 
 Trigo_sep <- read_sf("Pergamino/interseccion_29-30_sep_2019.shp")
+Trigo_INTA <- read_sf("Pergamino/Pergamino_Trigo.shp")
 
 
-mapview(Trigo_sep, col.regions="red", color="red")
-#  mapview(Trigo_INTA, color="blue")
+mapview(Trigo_sep, col.regions="red", color="red", label=FALSE)+ mapview(Trigo_INTA, col.regions="purple",color="purple", label=FALSE)
 
 
 ```
 
 ## Cultivos de verano 2019-2020
 
-El gráfico que aparece a la izquierda corresponde a las clasificaciones realizadas para el cultivo de soja y a la derecha las clasificaciones para el cultivo de maiz. La clasificación realizada por el INTA con imagenes LANDSAT para la campaña de verano 2019-2020 se representa en azul. La clasificación supervisada realizada con imágenes Sentinel-2 del 23-28 de febrero del 2020 está representada en rojo. 
+El gráfico que aparece a la izquierda corresponde a las clasificaciones realizadas para el cultivo de soja y a la derecha las clasificaciones para el cultivo de maiz. La clasificación realizada por el INTA con imagenes LANDSAT para la campaña de verano 2019-2020 se representa en violeta. La clasificación supervisada realizada con imágenes Sentinel-2 del 23-28 de febrero del 2020 está representada en rojo. 
 
 
 ```{r, echo=FALSE}
@@ -47,11 +53,11 @@ Soja_Feb <- read_sf("Pergamino/soja_punto_febrero.shp")
 Maiz_Feb <- read_sf("Pergamino/maiz_punto_febrero.shp")
 
 
-p1 <- mapview(Soja_Feb, col.regions="red", color="red")+
-  mapview(Soja_INTA, color="blue")
+p1 <- mapview(Soja_Feb, col.regions="red", color="red", labael= FALSE)+
+  mapview(Soja_INTA, col.regions="purple", color="purple", label=FALSE)
 
-p2<-mapview(Maiz_Feb, col.regions="red", color="red")+
-  mapview(Maiz_INTA, color="blue")
+p2<-mapview(Maiz_Feb, col.regions="red", color="red", label=FALSE)+
+  mapview(Maiz_INTA, col.regions="purple", color="purple", label=FALSE)
 
 sync(p1, p2)
 ```
