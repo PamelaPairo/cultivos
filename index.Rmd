@@ -62,3 +62,14 @@ p2<-mapview(Maiz_Feb, col.regions="red", color="red", label=FALSE)+
 sync(p1, p2)
 ```
 
+Con el fin de identificar los cultivos de soja de segunda, se superpusieron las capas de TRIGO  y de SOJA. La intersección entre ambas capas corresponde a la SOJA DE SEGUNDA y el área no superpuesta pertenecería a la SOJA DE PRIMERA.
+
+```{r, echo=FALSE}
+#Trigo_INTA <- read_sf("Pergamino/maiz_2020.shp") 
+Trigo_sep <- read_sf("Pergamino/interseccion_29-30_sep_2019.shp")
+Soja_Feb <- read_sf("Pergamino/soja_punto_febrero.shp")
+
+
+mapview(Trigo_sep, col.regions="orange", color="orange", label=FALSE)+ mapview(Soja_Feb, col.regions="purple",color="purple", label=FALSE)
+
+```
